@@ -1,0 +1,50 @@
+    (#%require(only racket/base vector))
+(define counter 0)
+
+
+;Backtracking method and its implementation
+(define (nq-bt n)
+
+  (let((vec(make-vector n(* n 2))))
+    ;(backtrak vec 0)
+    (display_board vec)
+    ;(time(display_board( backtrak vec 0 0)))
+    (set! counter 0) ;rest the variables
+    (display "The Number of Steps:")
+    (display counter))) ;shows us the number of steps it will take in the end once we get the solution
+
+
+;basically in this method we check for our certain conflicts and what not
+; we do this to so we can have out optimal board. 
+(define(backtrak vec col row)
+  (if (= col (vector-length vec) #t ) ;this is to basically check (#t is subjective, change if results may vary)
+      ;here we check if the queen has any conflicts (conflict line)
+      (if (eq? -1 (vector-ref vec col))
+          (do ((row 0 (+ 1 row)))
+            ((or (not (eq? -1 (vector-ref vec col)));stopped when the column is not empty or no more rows that we can go through
+
+))))))
+
+(define hits? (lambda (row col vec)
+  ;(define counter 0)
+  (if(eq? #f (vector-member row vec))
+     (if (do ((counter-col 0 (+ 1 counter-col)))
+           ((or (eq? counter-col col)
+                (eq? (abs (- col counter-col)) (abs (- row (vector-ref vec counter -col)))))
+  (if (eq? (abs (- col counter-col)) (abs (- row (vector-ref vec counter-col))))
+      #f
+      #t)))
+         (set! count (+ count 1))
+         (set! count (+ count 0))))
+  count))
+
+(define display_board
+  (lambda (vec)
+    (do ((row 0 (+ 1 row)))
+      ((eq? row (vector-length vec)))
+      (do ((col 0 (+ 1 col)))
+        ((eq? col (vector-length vec))
+         (display "\n"))
+        (if (eq? row (vector-ref vec col))
+            (display "1 ")
+            (display "0 "))))))
